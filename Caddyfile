@@ -1,0 +1,18 @@
+http://localhost {
+    redir https://localhost
+}
+
+https://localhost {
+    tls self_signed
+    log stdout
+    errors stdout
+
+    rewrite / {
+        to {uri} {uri}/ /index.php
+    }
+
+    timeouts 1m
+
+    fastcgi / 127.0.0.1:9000 php
+    startup php-fpm7
+}
